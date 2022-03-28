@@ -1,24 +1,23 @@
 import socket
+
 import click
-import time
 
-mysocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mysocket.connect(('data.pr4e.org', 80))
-access_cmd = 'GET http://data.pr4e.org/page1.htm HTTP/1.0\r\n\r\n'.encode()
-mysocket.send(access_cmd)
+from .sockets import PARAM
+from sockets import my_socket_lib
 
-# timeout setup
-st = time.monotonic()
-dt = 0
 
-while dt < 5:
-    data = mysocket.recv(512)
-    if len(data) < 1:
-        break
-    print(data.decode(), end="")
-    # update timeout
-    dt = time.monotonic() - st
-else:
-    print("My timeout activated.")
+@click.command()
+@click.argument('host', )
+# @click.argument('host', help="Hostname in internet domain notation or IPv4 address.")
+@click.argument('url', )
+# @click.argument('url', help="The url for whose response is given.")
+@click.option('--port', default=PARAM.DEF_WEB_PORT, show_default=True)
+@click.option('-t', '--timeout', default=PARAM.DEF_TIMEOUT, show_default=True, )
+def cli(host, url, port, timeout):
+    # Configure
+    socket.settimeout(timeout)
+    # Connect socket
+    my_socket_lib.connect_socket(host, port, url)
 
-mysocket.close()
+if __name__ == '__main__':
+    cli()
