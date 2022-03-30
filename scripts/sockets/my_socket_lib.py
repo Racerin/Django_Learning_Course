@@ -39,12 +39,10 @@ def create_server():
     # Configure socket to close properly? WORKS. https://stackoverflow.com/a/6380198/6556801
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
-        client_socket = None
-
         server_socket.bind((PARAM.DEF_SERVER_HOST, PARAM.DEF_WEBSERVER_PORT), )
         server_socket.listen(PARAM.DEF_SERVER_QUEUE_AMOUNT)
         while True:
-            client_socket, address = server_socket.accept()     # Blocking, waiting for a request
+            client_socket, _address = server_socket.accept()     # Blocking, waiting for a request
 
             # Receive the information
             response_data = client_socket.recv(5000).decode()
@@ -53,13 +51,6 @@ def create_server():
                 print(pieces_of_data[0])
 
             # Response details
-            data = """HTTP/1.1 200 OK\r
-            Content-Type: text/html; charset=utf-8\r
-            \r
-            <html><body>Hello world</body></html>\r
-            \r
-            """
-            # alternative
             data = "HTTP/1.1 200 OK\r\n"
             data += "Content-Type: text/html; charset=utf-8\r\n"
             data += "\r\n"
@@ -75,7 +66,6 @@ def create_server():
         print("Error:\n")
         print(e)
     finally:
-        # client_socket.shutdown(socket.SHUT_WR)
         server_socket.close()
 
 def url_request(url:str=PARAM.DEF_LOCAL_URL):
