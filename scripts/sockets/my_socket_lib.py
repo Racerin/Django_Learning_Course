@@ -1,4 +1,5 @@
 import socket
+import urllib.request
 import logging
 
 from . import PARAM
@@ -76,3 +77,8 @@ def create_server():
     finally:
         # client_socket.shutdown(socket.SHUT_WR)
         server_socket.close()
+
+def url_request(url:str=PARAM.DEF_LOCAL_URL):
+    fhand = urllib.request.urlopen(url)
+    for line in fhand:
+        print(line.decode().strip())
