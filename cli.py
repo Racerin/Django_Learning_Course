@@ -18,15 +18,6 @@ def simple_web_browser_example():
 def web_server_example():
     sockets.web_server()
 
-@cli.command()
-@click.argument('port', type=int)
-def ip_port_available(port):
-    # click.echo("Yes") if sockets.is_port_available(port) else click.echo("No")
-    if sockets.is_port_available(port):
-        click.echo("Yes") 
-    else:
-        click.echo("No")
-
 
 if __name__ == "__main__":
     cli()
