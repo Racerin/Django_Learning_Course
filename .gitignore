@@ -3,6 +3,7 @@
 
 # Private
 .env
+TODO.txt
 
 # Noise
 *.pyc
