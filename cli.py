@@ -14,6 +14,10 @@ def hello():
 def simple_web_browser_example():
     click.echo(sockets.read_webpage_example())
 
+@cli.command()
+def web_server_example():
+    sockets.web_server()
+
 
 if __name__ == "__main__":
     cli()
