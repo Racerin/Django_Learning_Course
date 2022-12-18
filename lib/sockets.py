@@ -26,23 +26,29 @@ def read_webpage_example(verbose=True) -> str:
         print(ans)
     return ans
 
-def web_server(ip_address:str='localhost', port:int=9000, def_msg="Hello World", log_func=print) -> None:
+def web_server(ip_address:str='localhost', port:int=9000, def_msg:str="Hello World", log_func=print) -> None:
     """ 
     Create a server and let clients connect to it to request a webpage message.
-     """
+    ip_address: hostname or IPv4 address of server (this device)
+    port: port number on which server communicates out of
+    def_msg: Text message website user sees.
+    log_func: Function used to log information within this function to admin. All logs are on one level
+    """
     log_func("Access http://{}:{}".format(ip_address, port) )
     try:
+        # Create socket (phone call) and ensure the port is available
         server_socekt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socekt.bind((ip_address, port))
         server_socekt.listen(5)
         while(True):
+            # Initiate web user communication and receives user HTTP request
             (clientsocket, address) = server_socekt.accept()
-
             rec_data = clientsocket.recv(5000).decode()
             pieces = rec_data.split("\n")
             if (len(pieces) > 0):
                 log_func(pieces[0])
-
+            
+            # Respond to web user
             data = "HTTP/1.1 200 OK\r\n"
             data += "Content-Type: text/html; charset=utf-8\r\n"
             data += "\r\n"
