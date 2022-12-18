@@ -37,14 +37,15 @@ def web_server(ip_address:str='localhost', port:int=9000, def_msg:str="Hello Wor
     log_func("Access http://{}:{}".format(ip_address, port) )
     try:
         # Create socket (phone call) and ensure the port is available
-        server_socekt = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_socekt.bind((ip_address, port))
-        server_socekt.listen(5)
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.bind((ip_address, port))
+        server_socket.listen(5)
         while(True):
             # Initiate web user communication and receives user HTTP request
-            (clientsocket, address) = server_socekt.accept()
+            (clientsocket, address) = server_socket.accept()
             rec_data = clientsocket.recv(5000).decode()
             pieces = rec_data.split("\n")
+            # Display 1st piece of header information. Used to respond appropriately (indifferent)
             if (len(pieces) > 0):
                 log_func(pieces[0])
             
@@ -62,5 +63,5 @@ def web_server(ip_address:str='localhost', port:int=9000, def_msg:str="Hello Wor
         log_func("Error:\n")
         log_func(exc)
     finally:
-        server_socekt.close()
+        server_socket.close()
         log_func("Socket 'http://{}:{}' closed.".format(ip_address, port))
