@@ -46,7 +46,7 @@ def web_server(ip_address:str='localhost', port:int=9000, def_msg="Hello World",
             data = "HTTP/1.1 200 OK\r\n"
             data += "Content-Type: text/html; charset=utf-8\r\n"
             data += "\r\n"
-            data += "<html><body><title>{}</title></body></html>\r\n\r\n".format(def_msg)
+            data += "<html><body>{}</body></html>\r\n\r\n".format(def_msg)
             clientsocket.sendall(data.encode())
             clientsocket.shutdown(socket.SHUT_WR)
 
