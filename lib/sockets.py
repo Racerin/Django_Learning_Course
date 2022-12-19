@@ -1,5 +1,27 @@
 import socket
 
+def is_port_available(port: int) -> bool:
+    """ 
+    Returns True if the port is available for use
+    Source: https://stackoverflow.com/a/52872579
+    NB. For me, it is not working.
+    """
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        print(s.connect_ex(('localhost', port)))
+        print(type(s.connect_ex(('localhost', port))))
+
+        print("Check equals to:")
+        print(s.connect_ex(('localhost', port)) == 0)
+        # return s.connect_ex(('localhost', port)) == 0
+
+        print("Bool not:")
+        print(not bool(s.connect_ex(('localhost', port))))
+
+        print("More than:")
+        print(s.connect_ex(('localhost', port)) > 0)
+        return int(s.connect_ex(('localhost', port))) > 0
+        # return not bool(s.connect_ex(('localhost', port)))
+
 def read_webpage(domain:str, url:str, port=80, stream_size=512) -> str:
     # Instantiate socket connection over the internet
     mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
