@@ -12,7 +12,7 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
-        return str((self.id, self.question_text))
+        return "{}. {}".format(self.id, self.question_text)
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
@@ -25,4 +25,4 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def __str__(self):
-        return str((self.id, self.question, self.choice_text))
+        return "{}. Question {} | {}".format(self.id, self.question, self.choice_text)
