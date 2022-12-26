@@ -1,0 +1,8 @@
+<p>This is a question.</p>
+<p>{{ question }}</p>
+<ul>
+    {% for choice in question.choice_set.all %}
+    <li>{{choice}}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'polls:index' %}">Go Home</a>
