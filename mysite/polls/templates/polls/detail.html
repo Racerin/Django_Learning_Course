@@ -1,5 +1,15 @@
-<form action="{% url 'polls:vote' question.id %}" method="POST">
-    {% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="{% url 'polls:vote' question.id %}" method="POST">
+        {% csrf_token %}
     <fieldset>
         <legend><h1>{{ question.question_text }}</h1></legend>
         {% if error_message %} <p><strong>{{ error_message }}</strong></p> {% endif %}
@@ -10,4 +20,8 @@
         {% endfor %}
     </fieldset>
     <input type="submit" value="Vote">
-</form>
+    </form>
+    <br>
+    <a href="{% url 'polls:index' %}">Go Home:</a>
+</body>
+</html>
