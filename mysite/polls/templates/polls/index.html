@@ -1,12 +1,16 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Poll and Vote</title>
+    <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}" type="image/png"> {# https://learndjango.com/tutorials/django-favicon-tutorial for some reason favicon doesn't show up. #}
 </head>
 <body>
+    <h1>Welcome</h1>
     {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -16,5 +20,18 @@
     {% else %}
     <p>No polls are available.</p>
     {% endif %}
+    <hr>
+    
+    <label for="file">Downloading progress:</label>
+    <progress id="file" value="32" max="100"> 32% </progress>
+    <hr>
+
+    <label for="Questions: (This does nothing. To be implemented.)">Choose a car:</label>
+    <select id="questions_dropdown">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+    </select>
 </body>
 </html>
