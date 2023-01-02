@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 
 __all__ = ['Question', 'Choice', 'timezone', 'datetime']
 
@@ -22,6 +23,9 @@ class Question(models.Model):
         return "{}. {}".format(self.id, self.question_text)
 
     def was_published_recently(self):
+        """ Confirms that published date of question is within 1 day. """
+        if self.pub_date >= timezone.now():
+            raise ValidationError("{} is a future date to now ({}). Please ensure that the database time is consistent.".format(self.pub_date, timezone.now()))
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 
