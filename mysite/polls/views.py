@@ -15,14 +15,12 @@ def index(request):
     context = dict(
         latest_question_list=latest_question_list,
         )
-    # return HttpResponse(template.render(context, request))
-    return render(request, 'polls/index.html', context)
+    return HttpResponse(template.render(context, request))
 
 def request_dir(request):
     """ Displays statistical information about request object. """
     context = dict(req=dir(request))
     return render(request, 'polls/request_dir.html', context=context)
-    # return HttpResponse(str(dir(request)))
 
 def detail(request, question_id):
     """ Displays a question text, with no results but with a form to vote. """
